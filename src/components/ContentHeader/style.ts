@@ -11,6 +11,7 @@ export const Container = styled.div`
     justify-content: space-between;
 
     margin-top: 25px;
+    margin-bottom: 25px;
 
    
 `;
