@@ -51,9 +51,16 @@ const List: React.FC<IRouteParams> = ({ match }) => {
 
     useEffect(() => {
 
-        const res = listData.map((item) => {
+        const filteredDate = listData.filter((item) => {
+            const date = new Date(item.date);
+            const month = String(date.getMonth() + 1);
+            const year = String(date.getFullYear());
+
+            return month === monthSelected && year === yearSelected
+        })
+        const formattedDate = filteredDate.map(item => {
             return {
-                id: String(Math.random() * data.length),
+                id: String(new Date().getTime()) + item.amount,
                 description: item.description,
                 amountFormatted:  formatCurrency(Number(item.amount)),
                 frequency: item.frequency,
@@ -62,8 +69,8 @@ const List: React.FC<IRouteParams> = ({ match }) => {
             }
         })
 
-        setData(res) 
-    },[])
+        setData(formattedDate) 
+    },[listData, monthSelected, yearSelected, data.length])
 
     const months = [
         {value: '1', label: 'Janeiro'},
